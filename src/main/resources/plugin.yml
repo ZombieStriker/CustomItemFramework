@@ -1,0 +1,6 @@
+name: CustomItemFramework
+version: ${project.version}
+main: me.zombiestriker.customitemframework.Main
+api-version: 1.16
+authors: [ Zombie_Striker ]
+description: Adds a custom item framework
