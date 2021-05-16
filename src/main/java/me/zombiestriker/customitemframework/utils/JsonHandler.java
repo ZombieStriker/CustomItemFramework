@@ -42,6 +42,8 @@ public class JsonHandler {
             writer.name(message.getKey()).value((String) message.getValue());
         } else if (message.getValue() instanceof Integer) {
             writer.name(message.getKey()).value((Integer) message.getValue());
+        } else if (message.getValue() instanceof Double) {
+            writer.name(message.getKey()).value((Double) message.getValue());
         } else if (message.getValue() instanceof Boolean) {
             writer.name(message.getKey()).value((Boolean) message.getValue());
         } else if (message.getValue() instanceof List) {
@@ -52,6 +54,8 @@ public class JsonHandler {
                     writeMessagesArray((HashMap<String, Object>) val);
                 } else if (val instanceof Boolean) {
                     writer.value((Boolean) val);
+                } else if (val instanceof Double) {
+                    writer.value((Double) val);
                 } else if (val instanceof Integer) {
                     writer.value((Integer) val);
                 } else {

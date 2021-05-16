@@ -58,7 +58,7 @@ public class CustomItem {
 
     public boolean isSimilar(ItemStack base) {
         if (base.getType() == material) {
-            if (base.getItemMeta().getCustomModelData() == custommodeldata) {
+            if(base.getItemMeta().hasCustomModelData() && base.getItemMeta().getCustomModelData() == custommodeldata) {
                 //TODO: You may want to also check fore lore if you want items to be lore specific, but I don't think you need to.
                 return true;
             }

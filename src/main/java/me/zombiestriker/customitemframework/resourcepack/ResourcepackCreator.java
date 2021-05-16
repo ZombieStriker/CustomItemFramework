@@ -69,9 +69,119 @@ public class ResourcepackCreator {
             HashMap<String, Object> map = new HashMap<>();
             map.put("parent", "item/generated");
             HashMap<String,Object> layer0 = new HashMap<>();
-            layer0.put("layer0","item/"+entry.getKey().name().toLowerCase());
-            map.put("textures",layer0);
+            if(entry.getKey()==Material.CROSSBOW){
+                layer0.put("layer0", "item/crossbow_standby");
+                map.put("textures", layer0);
+            }else {
+                layer0.put("layer0", "item/" + entry.getKey().name().toLowerCase());
+                map.put("textures", layer0);
+            }
+
+
+            /**
+             *
+             * {
+             *     "parent": "item/generated",
+             *     "textures": {
+             *         "layer0": "item/crossbow_standby"
+             *     },
+             *     "display": {
+             *         "thirdperson_righthand": {
+             *             "rotation": [ -90, 0, -60 ],
+             *             "translation": [ 2, 0.1, -3 ],
+             *             "scale": [ 0.9, 0.9, 0.9 ]
+             *         },
+             *         "thirdperson_lefthand": {
+             *             "rotation": [ -90, 0, 30 ],
+             *             "translation": [ 2, 0.1, -3 ],
+             *             "scale": [ 0.9, 0.9, 0.9 ]
+             *         },
+             *         "firstperson_righthand": {
+             *             "rotation": [ -90, 0, -55 ],
+             *             "translation": [ 1.13, 3.2, 1.13],
+             *             "scale": [ 0.68, 0.68, 0.68 ]
+             *         },
+             *         "firstperson_lefthand": {
+             *             "rotation": [ -90, 0, 35 ],
+             *             "translation": [ 1.13, 3.2, 1.13],
+             *             "scale": [ 0.68, 0.68, 0.68 ]
+             *         }
+             *     },
+             *     "overrides": [
+             *         {
+             *             "predicate": {
+             *                 "pulling": 1
+             *             },
+             *             "model": "item/crossbow_pulling_0"
+             *         },
+             *         {
+             *             "predicate": {
+             *                 "pulling": 1,
+             *                 "pull": 0.58
+             *             },
+             *             "model": "item/crossbow_pulling_1"
+             *         },
+             *         {
+             *             "predicate": {
+             *                 "pulling": 1,
+             *                 "pull": 1.0
+             *             },
+             *             "model": "item/crossbow_pulling_2"
+             *         },
+             *         {
+             *             "predicate": {
+             *                 "charged": 1
+             *             },
+             *             "model": "item/crossbow_arrow"
+             *         },
+             *         {
+             *             "predicate": {
+             *                 "charged": 1,
+             *                 "firework": 1
+             *             },
+             *             "model": "item/crossbow_firework"
+             *         },
+             */
+
+
+
             List<HashMap<String,Object>> overrides = new LinkedList<>();
+
+            if(entry.getKey()==Material.CROSSBOW){
+                HashMap<String, Object> data1 = new HashMap();
+                HashMap<String,Object> predicate1 = new HashMap<>();
+                predicate1.put("pulling",1);
+                data1.put("predicate",predicate1);
+                data1.put("model","item/crossbow_pulling_0");
+                overrides.add(data1);
+
+
+                HashMap<String, Object> data2 = new HashMap();
+                HashMap<String,Object> predicate2 = new HashMap<>();
+                predicate2.put("pulling",1);
+                predicate2.put("pull",0.58);
+                data2.put("predicate",predicate2);
+                data2.put("model","item/crossbow_pulling_1");
+                overrides.add(data2);
+
+                HashMap<String, Object> data3 = new HashMap();
+                HashMap<String,Object> predicate3 = new HashMap<>();
+                predicate3.put("pulling",1);
+                predicate3.put("pull",1.0);
+                data3.put("predicate",predicate3);
+                data3.put("model","item/crossbow_pulling_2");
+                overrides.add(data3);
+
+
+
+                HashMap<String, Object> data4 = new HashMap();
+                HashMap<String,Object> predicate4 = new HashMap<>();
+                predicate4.put("charged",1);
+                data4.put("predicate",predicate4);
+                data4.put("model","item/crossbow_arrow");
+                overrides.add(data4);
+            }
+
             for(CustomItem c : entry.getValue()){
                 HashMap<String, Object> data = new HashMap();
                 HashMap<String,Object> custommodeldata = new HashMap<>();
