@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../AppliedScience/AppliedScience.iml" filepath="$PROJECT_DIR$/../AppliedScience/AppliedScience.iml" />
       <module fileurl="file://$PROJECT_DIR$/CustomItemFramework.iml" filepath="$PROJECT_DIR$/CustomItemFramework.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../QualityArmory2/QualityArmory2.iml" filepath="$PROJECT_DIR$/../QualityArmory2/QualityArmory2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../QualityItems/QualityItems.iml" filepath="$PROJECT_DIR$/../QualityItems/QualityItems.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../SurvivalPlus/SurvivalPlus.iml" filepath="$PROJECT_DIR$/../SurvivalPlus/SurvivalPlus.iml" />
     </modules>
   </component>
 </project>

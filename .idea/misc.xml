@@ -9,6 +9,10 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/../QualityItems/pom.xml" />
+        <option value="$PROJECT_DIR$/../SurvivalPlus/pom.xml" />
+        <option value="$PROJECT_DIR$/../AppliedScience/pom.xml" />
+        <option value="$PROJECT_DIR$/../QualityArmory2/pom.xml" />
       </list>
     </option>
   </component>
