@@ -34,9 +34,9 @@ public class CIFListener implements Listener {
         CustomItem customItem = CustomItemFramework.getCustomItem(event.getItem());
         if (customItem != null) {
             if (event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK) {
-                customItem.getItemEvents().onLeftCLick(event);
+                customItem.getItemEvents().onLeftCLick(event,customItem);
             } else {
-                customItem.getItemEvents().onRightClick(event);
+                customItem.getItemEvents().onRightClick(event,customItem);
             }
         }
     }
@@ -45,7 +45,7 @@ public class CIFListener implements Listener {
     public void onDrop(PlayerDropItemEvent event) {
         CustomItem customItem = CustomItemFramework.getCustomItem(event.getItemDrop().getItemStack());
         if (customItem != null) {
-            customItem.getItemEvents().onDrop(event);
+            customItem.getItemEvents().onDrop(event,customItem);
         }
     }
 
@@ -53,7 +53,7 @@ public class CIFListener implements Listener {
     public void onConsume(PlayerItemConsumeEvent event) {
         CustomItem customItem = CustomItemFramework.getCustomItem(event.getItem());
         if (customItem != null) {
-            customItem.getItemEvents().onConsume(event);
+            customItem.getItemEvents().onConsume(event,customItem);
         }
     }
 
@@ -61,7 +61,7 @@ public class CIFListener implements Listener {
     public void onRightClick(PlayerInteractEntityEvent event) {
         CustomItem customItem = CustomItemFramework.getCustomItem(event.getPlayer().getInventory().getItemInMainHand());
         if (customItem != null) {
-            customItem.getItemEvents().onRightClickEntity(event);
+            customItem.getItemEvents().onRightClickEntity(event,customItem);
         }
     }
 

@@ -6,4 +6,5 @@ authors: [ Zombie_Striker ]
 description: Adds a custom item framework
 commands:
   customitemframework:
-    aliases: [CIF]
+    aliases: [cif]
+    description: The main command for the custom item framework

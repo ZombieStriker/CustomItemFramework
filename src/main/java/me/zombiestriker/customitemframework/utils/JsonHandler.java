@@ -37,7 +37,6 @@ public class JsonHandler {
     }
 
     private void writeObjects(Map.Entry<String, Object> message) throws IOException {
-        System.out.println(message.getKey() + "  " + message.getValue());
         if (message.getValue() instanceof String) {
             writer.name(message.getKey()).value((String) message.getValue());
         } else if (message.getValue() instanceof Integer) {

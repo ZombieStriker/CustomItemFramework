@@ -20,7 +20,6 @@ public class ResourcepackCreator {
 
     public static void compile(File file, File outputFile) throws IOException {
         ZipUtility zip = new ZipUtility();
-        System.out.println(outputFile.getPath());
         zip.zip(Arrays.asList(file.listFiles()), outputFile.getPath());
     }
 
@@ -182,11 +181,12 @@ public class ResourcepackCreator {
                 overrides.add(data4);
             }
 
-            for(CustomItem c : entry.getValue()){
+            List<CustomItem> customitems = entry.getValue();
+            Collections.sort(customitems);
+            for(CustomItem c : customitems){
                 HashMap<String, Object> data = new HashMap();
                 HashMap<String,Object> custommodeldata = new HashMap<>();
                 custommodeldata.put("custom_model_data",c.getCustomModelData());
-                System.out.println("Custom Model Data  "+custommodeldata);
                 data.put("predicate",custommodeldata);
                 data.put("model",c.getModel());
                 overrides.add(data);

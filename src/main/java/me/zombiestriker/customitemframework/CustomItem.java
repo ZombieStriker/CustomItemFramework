@@ -7,7 +7,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
 
-public class CustomItem {
+public class CustomItem implements Comparable<CustomItem> {
 
 
     private String internalName;
@@ -19,18 +19,18 @@ public class CustomItem {
     private ItemEvents itemeventtype;
 
     public CustomItem(String internalName, Material material, String displayname, String modelpath, int custommodeldata) {
-        this(internalName, material, displayname, modelpath,custommodeldata, null, ItemEvents.DEFAULT);
+        this(internalName, material, displayname, modelpath, custommodeldata, null, ItemEvents.DEFAULT);
     }
 
     public CustomItem(String internalName, Material material, String displayname, String modelpath, int custommodeldata, List<String> lore) {
-        this(internalName, material, displayname, modelpath,custommodeldata, lore, ItemEvents.DEFAULT);
+        this(internalName, material, displayname, modelpath, custommodeldata, lore, ItemEvents.DEFAULT);
     }
 
     public CustomItem(String internalName, Material material, String displayname, String modelpath, int custommodeldata, ItemEvents type) {
-        this(internalName, material, displayname,modelpath,custommodeldata, null, type);
+        this(internalName, material, displayname, modelpath, custommodeldata, null, type);
     }
 
-    public CustomItem(String internalName, Material material, String displayname,String modelpath,  int custommodeldata, List<String> lore, ItemEvents type) {
+    public CustomItem(String internalName, Material material, String displayname, String modelpath, int custommodeldata, List<String> lore, ItemEvents type) {
         this.material = material;
         this.displayname = displayname;
         this.internalName = internalName;
@@ -43,7 +43,7 @@ public class CustomItem {
     public ItemStack asItemStack() {
         ItemStack is = new ItemStack(material);
         ItemMeta im = is.getItemMeta();
-        im.setDisplayName(ChatColor.RESET+displayname);
+        im.setDisplayName(ChatColor.RESET + displayname);
         if (lore != null) {
             im.setLore(lore);
         }
@@ -57,12 +57,13 @@ public class CustomItem {
     }
 
     public boolean isSimilar(ItemStack base) {
-        if (base.getType() == material) {
-            if(base.getItemMeta().hasCustomModelData() && base.getItemMeta().getCustomModelData() == custommodeldata) {
-                //TODO: You may want to also check fore lore if you want items to be lore specific, but I don't think you need to.
-                return true;
+        if (base != null)
+            if (base.getType() == material) {
+                if (base.getItemMeta().hasCustomModelData() && base.getItemMeta().getCustomModelData() == custommodeldata) {
+                    //TODO: You may want to also check fore lore if you want items to be lore specific, but I don't think you need to.
+                    return true;
+                }
             }
-        }
         return false;
     }
 
@@ -73,14 +74,25 @@ public class CustomItem {
     public Material getMaterial() {
         return material;
     }
-    public int getCustomModelData(){
+
+    public int getCustomModelData() {
         return custommodeldata;
     }
-    public void setModelpath(String path){
+
+    public void setModelpath(String path) {
         this.modelpath = path;
     }
 
     public Object getModel() {
         return modelpath;
+    }
+
+    @Override
+    public int compareTo(CustomItem o) {
+        if (o.getCustomModelData() > getCustomModelData())
+            return -1;
+        if (o.getCustomModelData() == getCustomModelData())
+            return 0;
+        return 1;
     }
 }
