@@ -33,7 +33,15 @@ public final class Main extends JavaPlugin {
     private String resourcepackFileOutput = "resourcepackV1.zip";
 
     private static Main main;
+    private int version = 1;
 
+
+    public void setVersion(int version){
+        this.version = version;
+    }
+    public int getVersion(){
+        return version;
+    }
     protected static Main getInstance(){
         return main;
     }
@@ -135,7 +143,11 @@ public final class Main extends JavaPlugin {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                port = 8080;
+                if(!getConfig().contains("port")){
+                    getConfig().set("port",8080);
+                    saveConfig();
+                }
+                port = getConfig().getInt("port");
                 if (true) {
                     ip = "localhost";
                 } else {
@@ -148,6 +160,8 @@ public final class Main extends JavaPlugin {
                     e.printStackTrace();
                 }
 
+                CustomEntity.init(new File(getDataFolder(),"entitydata.yml"));
+
             }
         }.runTaskLater(this,0);
     }
@@ -155,10 +169,14 @@ public final class Main extends JavaPlugin {
     @Override
     public void onDisable() {
         daemon.running = false;
+        CustomEntity.save();
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if(!sender.isOp()){
+            return true;
+        }
         if(args.length==0){
             sender.sendMessage("<CustomItemFramework>:");
             sender.sendMessage("/cif give <itemname>  - Gives you the item");
@@ -185,6 +203,6 @@ public final class Main extends JavaPlugin {
      * @param player The player to send it to, note that they must have the right permission to download the pack
      */
     public void sendResourcePack(Player player) {
-        player.setResourcePack("http://" + ip + ":" + port + "/" +resourcepackFileOutput);
+        player.setResourcePack("http://" + ip + ":" + port + "/" +"version"+version+"/"+resourcepackFileOutput);
     }
 }

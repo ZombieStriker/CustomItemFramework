@@ -38,6 +38,14 @@ public class CustomItemFramework {
     }
 
 
+    public static void setResourcepackVersion(int version){
+        Main.getInstance().setVersion(version);
+    }
+    public static void incrementResourcepackVersion(int version){
+        Main.getInstance().setVersion(Main.getInstance().getVersion()+version);
+    }
+
+
     public static void registerCustomModel(File modeljson){
         FileUtils.copyFile(modeljson,new File(Main.getInstance().getModelFolder(),modeljson.getName()));
     }

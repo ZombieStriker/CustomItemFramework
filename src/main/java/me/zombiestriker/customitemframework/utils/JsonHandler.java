@@ -16,6 +16,11 @@ public class JsonHandler {
 
     public JsonHandler(File file) {
         try {
+            if(file.getParentFile().exists()){
+                file.getParentFile().mkdirs();
+            }
+            if(!file.exists())
+                file.createNewFile();
             writer = new JsonWriter(new FileWriter(file));
         } catch (IOException e) {
             e.printStackTrace();
