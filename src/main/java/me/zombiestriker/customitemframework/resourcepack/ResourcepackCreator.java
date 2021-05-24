@@ -1,5 +1,6 @@
 package me.zombiestriker.customitemframework.resourcepack;
 
+import me.zombiestriker.customitemframework.CustomBlock;
 import me.zombiestriker.customitemframework.CustomItem;
 import me.zombiestriker.customitemframework.CustomItemFramework;
 import me.zombiestriker.customitemframework.utils.FileUtils;
@@ -31,6 +32,71 @@ public class ResourcepackCreator {
         }
     }
 
+    public static void generateNoteBlockBlockStateJson(File resourcepackFile) throws IOException {
+        /**
+         * {
+         *   "variants": {
+         *     "instrument=harp,note=0,powered=false": {
+         *       "model": "minecraft:block/harp/0"
+         *     },
+         */
+
+        File dir = new File(resourcepackFile, "assets\\minecraft\\blockstates");
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+        File noteblock = new File(dir, "note_block.json");
+        JsonHandler noteblockjson = new JsonHandler(noteblock);
+        HashMap<String, Object> variants = new HashMap<>();
+        HashMap<String, Object> instrumentdata = new HashMap<>();
+        for(CustomBlock customBlock : CustomItemFramework.getCustomBlocks()) {
+            HashMap<String, Object> models = new HashMap<>();
+            models.put("model", customBlock.getModel());
+            instrumentdata.put("instrument="+customBlock.getInstrument().name().toLowerCase()+",note="+customBlock.getNote().getId()+",powered=true",models);
+        }
+        variants.put("variants",instrumentdata);
+        noteblockjson.writeJsonStream(variants);
+    }
+
+    public static void generateSingleFacedBlock(File resourcepackFile, String modelname, String texturepath) throws IOException {
+        File dir = new File(resourcepackFile, "assets\\minecraft\\models\\block");
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+        File materialfile = new File(dir, modelname+".json");
+
+        JsonHandler materialjson = new JsonHandler(materialfile);
+        HashMap<String, Object> overview = new HashMap<>();
+        HashMap<String, Object> textures = new HashMap<>();
+        textures.put("all",texturepath);
+        overview.put("parent","minecraft:block/cube_all");
+        overview.put("textures",textures);
+        materialjson.writeJsonStream(overview);
+    }
+
+    public static void genereateMultifacedBlock(File resourcepackFile, String modelname, String westFaceTexturePath, String eastFaceTexturePath,
+                                                String northFaceTexturePath, String southFaceTexturePath,
+                                                String upFaceTexturePath, String downFaceTexturePath,String particleTexturePath) throws IOException {
+        File dir = new File(resourcepackFile, "assets\\minecraft\\models\\block");
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+        File materialfile = new File(dir, modelname+".json");
+
+        JsonHandler materialjson = new JsonHandler(materialfile);
+        HashMap<String, Object> overview = new HashMap<>();
+        HashMap<String, Object> textures = new HashMap<>();
+        textures.put("particle",particleTexturePath);
+        textures.put("north",northFaceTexturePath);
+        textures.put("south",southFaceTexturePath);
+        textures.put("east",eastFaceTexturePath);
+        textures.put("west",westFaceTexturePath);
+        textures.put("up",upFaceTexturePath);
+        textures.put("down",downFaceTexturePath);
+        overview.put("parent","minecraft:block/cube");
+        overview.put("textures",textures);
+        materialjson.writeJsonStream(overview);
+    }
     public static void generateSoundsJSON(File resourcepackFile) throws IOException {
         File dir = new File(resourcepackFile, "assets\\minecraft");
         if (!dir.exists()) {
@@ -68,7 +134,8 @@ public class ResourcepackCreator {
             File dir;
 
             if (entry.getKey().isBlock()) {
-                dir = new File(resourcepackFile, "assets\\minecraft\\models\\block");
+               // dir = new File(resourcepackFile, "assets\\minecraft\\models\\block");
+                dir = new File(resourcepackFile, "assets\\minecraft\\models\\item");
             } else {
                 dir = new File(resourcepackFile, "assets\\minecraft\\models\\item");
             }

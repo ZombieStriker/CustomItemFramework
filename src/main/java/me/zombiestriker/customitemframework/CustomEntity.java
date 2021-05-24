@@ -12,9 +12,7 @@ import org.yaml.snakeyaml.Yaml;
 import javax.accessibility.AccessibleComponent;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class CustomEntity implements ConfigurationSerializable {
 
@@ -29,10 +27,18 @@ public class CustomEntity implements ConfigurationSerializable {
     public static void init(File entitydata){
         file = entitydata;
         configuration = YamlConfiguration.loadConfiguration(file);
-        configuration.get("data");
+        for(CustomEntity ent : (List<CustomEntity>)configuration.get("data")){
+            if(ent!=null)
+            entities.put(ent, (ArmorStand) ent.getEntity());
+        }
+        Bukkit.broadcastMessage(entities.size()+"");
     }
     public static void save(){
-        configuration.set("data",entities.keySet());
+        List<CustomEntity> list = new ArrayList<>();
+        for(CustomEntity e : entities.keySet()){
+            list.add(e);
+        }
+        configuration.set("data",list);
         try {
             configuration.save(file);
         } catch (IOException e) {
@@ -40,7 +46,7 @@ public class CustomEntity implements ConfigurationSerializable {
         }
     }
 
-    public CustomEntity(HashMap<String, Object> map){
+    public CustomEntity(Map<String, Object>  map){
         Location loc = (Location) map.get("location");
         if(!loc.isWorldLoaded()){
             loc.getChunk().load();

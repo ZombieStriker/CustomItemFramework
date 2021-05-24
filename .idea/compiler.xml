@@ -16,6 +16,7 @@
     <bytecodeTargetLevel>
       <module name="AppliedScience" target="1.8" />
       <module name="CustomItemFramework" target="1.8" />
+      <module name="Music2" target="1.8" />
       <module name="QualityArmory2" target="1.8" />
       <module name="QualityItems" target="1.8" />
       <module name="SurvivalPlus" target="1.8" />
